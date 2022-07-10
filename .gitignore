@@ -1,0 +1,9 @@
+build/
+cmake-build-debug/
+.idea/
+*.cflags
+*.config
+*.creator
+*.cxxflags
+*.files
+*.includes
