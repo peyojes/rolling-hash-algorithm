@@ -8,6 +8,7 @@ struct FileInterface
     virtual bool getLine(std::string& line) = 0;
     virtual void close() = 0;
     virtual void startsFromBegin() = 0;
+    virtual bool isExists() = 0;
 };
 
 #endif // FILE_INTERFACE_H
