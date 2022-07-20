@@ -14,6 +14,7 @@ class File: public FileInterface {
     virtual void close() override;
     virtual void startsFromBegin() override;
     virtual bool isExists() override;
+    virtual std::string getContent() override;
  private:
     std::ifstream file_;
     const char* file_name_;

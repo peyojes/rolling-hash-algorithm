@@ -12,6 +12,7 @@ class FileMock : public FileInterface {
     MOCK_METHOD(void, close, (), (override));
     MOCK_METHOD(void, startsFromBegin, (), (override));
     MOCK_METHOD(bool, isExists, (), (override));
+    MOCK_METHOD(std::string, getContent, (), (override));
 };
 
 #endif // FILE_INTERFACE_MOCK_H

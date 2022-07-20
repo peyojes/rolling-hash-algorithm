@@ -31,5 +31,16 @@ int main(int argc, const char** argv) {
       cout << "Signature: " << to_string(signatureCreator.getSignature(file)) << endl;
   }
 
+  if (inputArgumentChecker.IsDeltaCommand()) {
+      const char* base_file_path = argv[2];
+      const char* new_file_path = argv[3];
+
+      File base_file(base_file_path);
+      File new_file(new_file_path);
+
+      cout << "Base:\n" << base_file.getContent() << endl;
+      cout << "New file:\n" << new_file.getContent() << endl;
+  }
+
   return 0;
 }

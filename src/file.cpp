@@ -34,3 +34,9 @@ bool File::isExists()
 {
     return exists(file_name_);
 }
+
+std::string File::getContent()
+{
+    std::string content((std::istreambuf_iterator<char>(file_)), std::istreambuf_iterator<char>());
+    return content;
+}

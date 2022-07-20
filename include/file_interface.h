@@ -9,6 +9,7 @@ struct FileInterface
     virtual void close() = 0;
     virtual void startsFromBegin() = 0;
     virtual bool isExists() = 0;
+    virtual std::string getContent() = 0;
 };
 
 #endif // FILE_INTERFACE_H
