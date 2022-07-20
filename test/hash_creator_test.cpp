@@ -47,5 +47,3 @@ TEST(HashCreatorTest, fullWindow_getHashFirstCall_calculateFirstHash) {
     EXPECT_FALSE(hash_creator.isNextHash());
     EXPECT_EQ(hash_creator.getHash(), expected_hash);
 }
-
-// add koniec contentu
