@@ -1,10 +1,9 @@
-//
-// Created by pawel on 10/8/19.
-//
-
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
+#include <spdlog/spdlog.h>
 
 int main(int argc, char **argv) {
+  spdlog::set_level(spdlog::level::info);
+  spdlog::set_pattern("[%l] %v");
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

@@ -6,11 +6,14 @@ project(rolling-hash-algorithm)
 # add Google test library
 add_subdirectory(test)
 
+add_subdirectory(lib)
+
 # C++ 17 version
 set(CMAKE_CXX_STANDARD 17)
 
 # Headers files
-include_directories(include)
+include_directories(include
+    ${CMAKE_BINARY_DIR}/spdlog-src/include)
 
 # Source files
 file(GLOB SOURCE_FILES_DIR ./src/**.cpp ./src/**.c ./src/**.cc)
