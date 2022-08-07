@@ -1,7 +1,11 @@
 #include <iostream>
 
+#include <spdlog/spdlog.h>
 
+#include "differences_printer.h"
 #include "file.h"
+#include "hash_creator.h"
+#include "hash_comparator.h"
 #include "input_arguments_checker.h"
 #include "signature_creator.h"
 
@@ -10,37 +14,57 @@ using std::endl;
 using std::to_string;
 
 
+namespace  {
+constexpr size_t WINDOW_SIZE = 4;
+}
+
 int main(int argc, const char** argv) {
-  InputArgumentsChecker inputArgumentChecker(argc, argv);
 
-  if (!inputArgumentChecker.IsInputParametersCorrect()) {
-     cout << "Wrong input parameters" << endl; // add help description
+    spdlog::set_pattern("[%l] %v");
+
+    InputArgumentsChecker inputArgumentChecker(argc, argv);
+
+    if (!inputArgumentChecker.IsInputParametersCorrect()) {
+      spdlog::warn("Wrong input parameters");
+      spdlog::info("Usage: {} [OPTION] <base> <new_file>", argv[0]);
+      spdlog::info("Options:");
+      spdlog::info("    -d, --delta      create delta from <base> and <new_file>");
+      spdlog::info("    -s, --signature  create siganture for <base>");
+
       return 0;
-  }
+    }
 
-  if (inputArgumentChecker.IsSignatureCommand()) {
+    if (inputArgumentChecker.IsSignatureCommand()) {
       const char* file_path = argv[2];
       File file(file_path);
 
       if (!file.isExists()) {
-          cout << file_path << " doesn't exists. Can not create signature" << endl;
+          spdlog::error("{} doesn't exists. Can not create signature", file_path);
           return 0;
       }
 
       SignatureCreator signatureCreator;
-      cout << "Signature: " << to_string(signatureCreator.getSignature(file)) << endl;
-  }
+      spdlog::info("Signature: {}", to_string(signatureCreator.getSignature(file)));
+    }
 
-  if (inputArgumentChecker.IsDeltaCommand()) {
+    if (inputArgumentChecker.IsDeltaCommand()) {
+      spdlog::info("Start delta command");
       const char* base_file_path = argv[2];
       const char* new_file_path = argv[3];
 
+
       File base_file(base_file_path);
       File new_file(new_file_path);
+      const auto base_content = base_file.getContent();
+      const auto new_file_content = new_file.getContent();
+      HashCreator base_creator(base_content, WINDOW_SIZE);
+      HashCreator new_file_creator(new_file_content, WINDOW_SIZE);
 
-      cout << "Base:\n" << base_file.getContent() << endl;
-      cout << "New file:\n" << new_file.getContent() << endl;
-  }
+      HashComparator comparator(base_creator, new_file_creator);
 
-  return 0;
+      DifferencesPrinter printer;
+      printer.show(base_content, new_file_content, comparator.getDifferences());
+    }
+
+    return 0;
 }
