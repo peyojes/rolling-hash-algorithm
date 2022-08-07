@@ -5,8 +5,8 @@
 
 class SignatureCreator {
  public:
-    SignatureCreator() {};
-    std::size_t getSignature(FileInterface &file) const;
+  SignatureCreator(){};
+  std::size_t getSignature(FileInterface &file) const;
 };
 
-#endif // SIGNATURE_CREATOR_H
+#endif  // SIGNATURE_CREATOR_H

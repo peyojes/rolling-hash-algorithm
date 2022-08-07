@@ -1,18 +1,16 @@
 #ifndef INPUTARGUMENTSCHECKER_H
 #define INPUTARGUMENTSCHECKER_H
 
-
-class InputArgumentsChecker
-{
+class InputArgumentsChecker {
  public:
-    InputArgumentsChecker(const int argc, const char **argv);
-    bool IsSignatureCommand() const;
-    bool IsDeltaCommand() const;
-    bool IsInputParametersCorrect() const;
+  InputArgumentsChecker(const int argc, const char **argv);
+  bool IsSignatureCommand() const;
+  bool IsDeltaCommand() const;
+  bool IsInputParametersCorrect() const;
 
  private:
-    bool is_signuture_command_;
-    bool is_delta_command_;
+  bool is_signuture_command_;
+  bool is_delta_command_;
 };
 
-#endif // INPUTARGUMENTSCHECKER_H
+#endif  // INPUTARGUMENTSCHECKER_H
